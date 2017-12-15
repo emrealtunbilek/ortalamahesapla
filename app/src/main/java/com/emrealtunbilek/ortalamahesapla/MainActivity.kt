@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.yeni_ders_layout.view.*
 
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             }
             //Eğer ders adı girilmeden ekle butonu tıklanırsa uyarı verilir
             else {
-                Toast.makeText(this, "Ders Adını Giriniz", Toast.LENGTH_LONG).show()
+                FancyToast.makeText(this,"Ders Adını Giriniz !",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
             }
 
 
@@ -154,7 +155,8 @@ class MainActivity : AppCompatActivity() {
 
 
         //ORTALAMA HESABI YAPILIR VE KULLANICIYA GÖSTERİLİR
-        Toast.makeText(this, "ORTALAMA : " + (toplamNot/toplamKredi),Toast.LENGTH_LONG).show()
+
+        FancyToast.makeText(this,"ORTALAMA : " + (toplamNot/toplamKredi) ,FancyToast.LENGTH_LONG,FancyToast.WARNING,true).show();
         tumDerslerinBilgileri.clear()
 
     }
