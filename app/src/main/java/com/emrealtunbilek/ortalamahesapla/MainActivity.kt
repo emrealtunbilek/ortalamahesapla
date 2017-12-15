@@ -1,6 +1,5 @@
 package com.emrealtunbilek.ortalamahesapla
 
-import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +8,15 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.yeni_ders_layout.*
 import kotlinx.android.synthetic.main.yeni_ders_layout.view.*
 
 class MainActivity : AppCompatActivity() {
 
+    //ders adı girerken otomatik tamamlamada çıkacak ders adları
     private val DERSLER= arrayOf("Matematik", "Türkçe", "Fizik", "Edebiyat","Algoritma","Tarih")
 
+    //kullanıcının eklediği tüm dersleri ve bilgilerini tutan arraylist
+    private var tumDerslerinBilgileri:ArrayList<Dersler> = ArrayList(5)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,11 +109,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    fun ortalamaHesapla(view: View){
-
-    }
-
     //spinner'a direk olarak string değer atayamıyoruz, o yüzden atayacagımız string ifadenin karşılığı olan
     //position değerini bulan ve bize geri döndüren methodu oluşturalım
     fun spinnerDegerinIndexiniBul(spinner:Spinner , aranacakDeger:String) : Int{
@@ -128,6 +124,60 @@ class MainActivity : AppCompatActivity() {
         }
 
         return index
+    }
+
+
+    //ortalama hesapla butonu tıklandıgında olusturulan tüm yeni derslerin bilgilerini
+    //bir arraylistede topladık. Daha sonra burdaki değerleri kullanarak ortalama hesabını yaptık
+    fun ortalamaHesapla(view: View){
+
+        var toplamNot:Double = 0.0
+        var toplamKredi = 0.0
+
+        for (i in 0..rootLayout.childCount - 1){
+
+            var tekSatir = rootLayout.getChildAt(i)
+
+            var geciciDers= Dersler(tekSatir.etYeniDersAd.text.toString(),
+                    ((tekSatir.spnYeniDersKredi.selectedItemPosition)+1).toString(),
+                    tekSatir.spnYeniDersNot.selectedItem.toString())
+
+            tumDerslerinBilgileri.add(geciciDers)
+        }
+
+        for (oankiDers in tumDerslerinBilgileri){
+
+            toplamNot += harfiNotaCevir(oankiDers.dersHarfNot) * (oankiDers.dersKredi.toDouble())
+            toplamKredi += oankiDers.dersKredi.toDouble()
+
+        }
+
+
+        //ORTALAMA HESABI YAPILIR VE KULLANICIYA GÖSTERİLİR
+        Toast.makeText(this, "ORTALAMA : " + (toplamNot/toplamKredi),Toast.LENGTH_LONG).show()
+        tumDerslerinBilgileri.clear()
+
+    }
+
+    //gelen harf notlarını double değerleri çeviren fonksiyonumuz
+    fun harfiNotaCevir(gelenNotHarfDegeri:String) : Double {
+
+        var deger=0.0
+
+        when(gelenNotHarfDegeri){
+
+            "AA" -> deger=4.0
+            "BA" -> deger =3.5
+            "BB" -> deger = 3.0
+            "BC" -> deger = 2.5
+            "CC" -> deger = 2.0
+            "DC" -> deger = 1.5
+            "DD" -> deger = 1.0
+            "FF" -> deger = 0.0
+
+        }
+        return deger
+
 
 
     }

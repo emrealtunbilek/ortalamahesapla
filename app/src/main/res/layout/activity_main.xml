@@ -41,7 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginTop="8dp"
-            android:entries="@array/tumNotlar"
+            android:entries="@array/tumDerslerinBilgileri"
             app:layout_constraintEnd_toStartOf="@+id/btnDersEkle"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spnDersKredi"
