@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
             "AA" -> deger=4.0
             "BA" -> deger =3.5
             "BB" -> deger = 3.0
-            "BC" -> deger = 2.5
+            "CB" -> deger = 2.5
             "CC" -> deger = 2.0
             "DC" -> deger = 1.5
             "DD" -> deger = 1.0
